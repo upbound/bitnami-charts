@@ -46,6 +46,9 @@ spec:
         runAsUser: {{ .Values.securityContext.runAsUser }}
       {{- end }}
       {{- if and .Values.volumePermissions.enabled .Values.persistence.enabled }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
       initContainers:
         - name: volume-permissions
           image: {{ include "etcd.volumePermissions.image" . }}
